@@ -12,4 +12,5 @@ RUN rm -r /home/jovyan
 RUN pip install \
  sas7bdat && \
  fix-permissions $CONDA_DIR
+# copy notebooks
 ADD $NOTEBOOKS_FROM $HUB_PATH
