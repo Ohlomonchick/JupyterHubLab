@@ -6,7 +6,9 @@ RUN conda install --quiet --yes \
  fix-permissions $CONDA_DIR
 ARG NOTEBOOKS_FROM
 ARG HUB_PATH
-
+USER root
+# remove pre-created image folders
+RUN rm -r /home/jovyan
 RUN pip install \
  sas7bdat && \
  fix-permissions $CONDA_DIR
