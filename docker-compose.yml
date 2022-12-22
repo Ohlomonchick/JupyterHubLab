@@ -10,8 +10,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - jupyterhub_data:/srv/jupyterhub
     environment:
+      DOCKER_NOTEBOOK_DIR: /home
       DOCKER_JUPYTER_IMAGE: jupyterlab_img
       DOCKER_NETWORK_NAME: ${COMPOSE_PROJECT_NAME}_default
+
       HUB_IP: jupyterhub
     restart: on-failure
     ports:
@@ -19,7 +21,12 @@ services:
 
   # single-user containers configuration
   jupiterlab:
-    build: jupiterlab
+    build: 
+      context: ./
+      dockerfile: ./jupiterlab/Dockerfile
+      args:
+        - NOTEBOOKS_FROM=go
+        - HUB_PATH=/home
     image: jupyterlab_img
     network_mode: none
     command: echo

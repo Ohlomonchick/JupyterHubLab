@@ -17,27 +17,24 @@ c.JupyterHub.services = [
         sys.executable, 
         '-m', 'jupyterhub_idle_culler', 
         '--timeout=600',
-        '--cull-users=True',
-        '--cull-admin-users=true',
-        '--remove-named-servers=true'
         ], 
     } 
 ] 
 
 
 # simle authentication
-# c.JupyterHub.authenticator_class = 'firstuseauthenticator.FirstUseAuthenticator'
+c.JupyterHub.authenticator_class = 'firstuseauthenticator.FirstUseAuthenticator'
 c.Authenticator.admin_users = {'admin'}
 c.JupyterHub.admin_access = True
-# c.FirstUseAuthenticator.create_users = False
+c.Authenticator.min_password_length = 4
 
 
 # storage configuration for single-users
-notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan'
+notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home'
 c.DockerSpawner.notebook_dir = notebook_dir 
 c.DockerSpawner.volumes = { 
     'jupyterhub-user-{username}': notebook_dir, 
-    'jupyterhub-shared': '/home/jovyan/shared'
+    'jupyterhub-shared': '/home/shared'
 }
 
 # user environment limits
