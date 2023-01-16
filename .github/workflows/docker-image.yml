@@ -17,4 +17,4 @@ jobs:
     - name: Build the Docker image
       run: docker build ./jupyterhub --file ./jupyterhub/Dockerfile --tag hub-image:1.0
     - name: Push docker image
-      run: docker push Ohlomonchick/DevOpsHub:hub-image:1.0
+      run: docker push Ohlomonchick/devopshub:hub-image:1.0
